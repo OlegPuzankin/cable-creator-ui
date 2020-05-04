@@ -1,0 +1,41 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+
+.item-to-cart {
+  @include absCenter;
+  min-width: 50%;
+  max-width: 80%;
+  background-color: #fff;
+  box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 3rem;
+  animation: appearance 0.35s ease-out 0.15s backwards;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    border-bottom: $border-line-gray;
+    padding-bottom: 1rem;
+  }
+
+  &__item {
+    padding: 0.5rem 0;
+    border-bottom: $border-line-gray;
+  }
+
+  &_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+    padding: 0 2rem;
+    font-size: 1rem;
+  }
+}
+
+.gap_1 {
+  width: 1rem;
+}

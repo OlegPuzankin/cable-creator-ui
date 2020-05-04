@@ -1,0 +1,29 @@
+@import "../../sass/variables";
+
+.back-icon-container {
+  color: #fff;
+  cursor: pointer;
+  position: fixed;
+  top: 5rem;
+  left: 2rem;
+
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background-color: $color-primary-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $shadow-1;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: darken($color-primary-light, 20%);
+    box-shadow: $shadow-2;
+    transform: translateX(-3px);
+  }
+
+  //   transform: translateX(40rem);
+
+  //   animation: cartIconAppearance 500ms 500ms ease-out forwards;
+}

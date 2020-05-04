@@ -1,0 +1,34 @@
+@import './sass/_utils.scss';
+
+
+body {
+  background-color: #EDF2F7;
+
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+
+}
+
+body {
+  background-color: #2D3748;
+}
+
+.material-icons {
+  transition: all .3s;
+  cursor: pointer;
+}
+
+
+
+
+

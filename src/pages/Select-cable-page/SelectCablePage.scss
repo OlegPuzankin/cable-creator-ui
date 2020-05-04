@@ -1,0 +1,29 @@
+@import "../../sass/variables.scss";
+
+.select-cable-container {
+  display: flex;
+}
+
+.select-cable-card {
+  background-color: #fff;
+
+  overflow: hidden;
+  //   border-radius: 5px;
+  //   padding: 2rem;
+  cursor: pointer;
+  width: 33%;
+  border-right: $border-line-gray;
+
+  & img {
+    width: 100%;
+  }
+
+  & .caption {
+    background-color: $color-grey-light-2;
+    padding: 1rem 0;
+    border-top: $border-line-gray;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

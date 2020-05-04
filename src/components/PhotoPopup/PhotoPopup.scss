@@ -1,0 +1,25 @@
+@import '../../sass/mixins';
+@import '../../sass/variables';
+
+.popup-photo {
+  @include absCenter;
+
+  max-height: 85%;
+  background-color: #fff;
+  box-shadow: 0 2rem 4rem rgba($color-black, .2);
+  border-radius: 5px;
+  overflow: hidden;
+  animation: appearance .35s ease-out .15s backwards;
+}
+
+@keyframes appearance {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5, 0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1, 1);
+  }
+}

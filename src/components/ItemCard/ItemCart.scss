@@ -1,0 +1,84 @@
+@import "../../sass/variables";
+
+
+.item-card {
+  color: #000;
+  background-color: #fff;
+
+  &__title{
+    text-align: center;
+    padding: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    display: flex;
+    //padding: 1.25rem 0;
+    border-top: $border-line-gray;
+    border-bottom: $border-line-gray;
+  }
+
+  &__left-side {
+    display: flex;
+    padding: 1rem 1.25rem;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 12rem;
+    //justify-content: center;
+
+  }
+
+  &-image {
+    border-radius: 9999px;
+    //background-size: cover;
+    //background-position: center;
+    //box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+    border: 1px solid $color-grey-light-2;
+    width: 10rem;
+    max-height: 10rem;
+    cursor: pointer;
+    transition: all .3s;
+  }
+
+  &-image:hover {
+    box-shadow: 0 0 3px 4px rgba(0, 0, 0, .2);
+  }
+
+  &__price {
+    margin-top: .5rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 2;
+  }
+
+  &__ext-link {
+    //max-width: 80%;
+    //width: auto;
+    display: inline-block;
+    margin: 0.75rem 0rem;
+    //margin-left: 1rem;
+    padding: 0.75rem 0.75rem;
+    font-size: .8rem;
+    background-color: $color-primary-light;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 1000px;
+    transition: all .3s;
+
+    &:hover {
+      background-color: $color-primary-dark;
+      box-shadow: 0 0 1rem rgba(0, 0, 0, .4);
+    }
+  }
+
+  &__right-side {
+    border-left: 1px solid $color-grey-dark-2;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+}
+
+
+

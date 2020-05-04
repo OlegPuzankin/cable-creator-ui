@@ -1,0 +1,89 @@
+@import "../../sass/variables";
+
+.alert-box{
+
+  //box-shadow: 0 2rem 4rem rgba($color-black, .2);
+  //position: absolute;
+  //bottom: 1rem;
+  //left:1rem;
+  //width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 1rem;
+  border-radius: 5px;
+  overflow: hidden;
+  animation: entering 300ms ease-out forwards;
+  //animation-iteration-count: 2;
+  opacity: .5;
+  //animation-fill-mode: forwards;
+  //opacity: 0;
+
+  &__text{
+    font-weight: 700;
+    margin-right: auto;
+
+  }
+}
+
+.alert-box.exiting{
+  animation: exiting 1000ms ease-out;
+
+  //animation-name: entering;
+  //animation-direction: reverse;
+  //animation-duration: 2000ms;
+  ////reverse 1200ms ease-out forwards;
+  //
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes entering{
+  0% {
+    opacity: 0;
+    transform: translateX(-40rem);
+
+  }
+  25% {
+    opacity: .8;
+    transform: translateX(0rem);
+
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(5rem);
+
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0rem);
+
+  }
+}
+
+@keyframes exiting{
+  0% {
+    opacity: 1;
+    transform: translateX(0rem);
+
+  }
+  25% {
+    opacity: 1;
+    transform: translateX(5rem);
+
+  }
+
+  75% {
+    opacity: .8;
+    transform: translateX(-10rem);
+
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-40rem);
+  }
+}

@@ -1,0 +1,64 @@
+@import "../../sass/variables";
+
+.nav-container {
+  color: #fff;
+  background-color: $color-primary-dark;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  padding: 0.5rem 3rem;
+}
+
+.logo-container {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-right: 1rem;
+  //line-height: 1.5;
+}
+
+.count-cart-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  top: -0.5rem;
+  right: -0.5rem;
+  background-color: rgba($color-secondary-dark, 1);
+  border-radius: 9999px;
+}
+
+///////////////////NAVIGATION_LINKS/////////////////
+
+.nav-link {
+  transition: all 0.2s;
+  padding: 0.5rem;
+  text-transform: uppercase;
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  &-selected {
+    color: white;
+    background-color: $color-tertiary-light;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+  }
+
+  &:hover {
+    color: white;
+    background-color: $color-tertiary-light;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0.25rem);
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.4);
+    //background-color: $color-tertiary-light;
+  }
+}
