@@ -39,12 +39,7 @@ export const ConnectorsTable = () => {
 
 
     async function editHandler(e, arg) {
-        // const item = connectors.find(c => c.id === arg)
-        // debugger
-        // dispatch(setEditItem(item))
         dispatch(togglePopup())
-
-
     }
 
     async function deleteHandler(e, arg) {
@@ -55,7 +50,6 @@ export const ConnectorsTable = () => {
         try {
             await firebase.deleteItemFromDatabase('connectors', editItem.id)
         } catch (e) {
-            debugger
             console.log(e.message)
         }
     }

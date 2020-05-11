@@ -3,7 +3,9 @@ import './CartPage.scss';
 import { useSelector } from "react-redux";
 import { selectCartItems, selectCartTotal } from "../../redux/selectors/cart-selectors";
 import { CartItem } from "../../components/CartItem/CartItem";
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { GoBackIcon } from '../../UI/GoBackIcon/GoBackIcon'
+import { Loader } from '../../UI/Loader/Loader'
 
 
 
@@ -12,12 +14,33 @@ export const CartPage = (props) => {
 
     const cartItems = useSelector(selectCartItems)
     const cartTotal = useSelector(selectCartTotal)
-    // const history = useHistory()
+    const isInitialize = useSelector(state => state.ui.isInitialize);
+
+    const history = useHistory()
+
+
+    ////////////////////render//////////////////////
+
+
+    if (isInitialize) {
+        return (
+            <div className='loader-background'>
+                <div className='loader-container'>
+                    <Loader />
+                </div>
+            </div>)
+    }
 
 
 
-    if (cartItems.length === 0)
-        return <div className='empty-cart'>Корзина пуста</div>
+    if (cartItems.length === 0) {
+        return (
+            <>
+                <div className='empty-cart'>Корзина пуста</div>
+                <GoBackIcon clickHandler={() => history.goBack()} size='text-4xl' />
+            </>)
+    }
+
 
 
 
@@ -37,6 +60,7 @@ export const CartPage = (props) => {
             <div className='total'>
                 <span>Total: ${cartTotal}</span>
             </div>
+            <GoBackIcon clickHandler={() => history.goBack()} size='text-4xl' />
 
         </div>
     );

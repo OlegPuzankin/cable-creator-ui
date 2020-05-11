@@ -16,7 +16,16 @@ import { ItemCard } from "../../components/ItemCard/ItemCard";
 import { togglePopup } from "../../redux/actions/ui-actions";
 import { PhotoPopup } from "../../components/PhotoPopup/PhotoPopup";
 import { addItemToCart } from "../../redux/actions/cart-actions";
-import { selectCables, selectConnectors, selectProducersMappedObj } from "../../redux/selectors/data-selectors";
+import {
+    selectCables,
+    selectConnectors,
+    selectConnectorsMappedObj,
+    selectProducersMappedObj,
+    selectCableTypesMappedObj,
+    selectCablesMappedObj,
+
+} from "../../redux/selectors/data-selectors";
+import { selectCartItems } from '../../redux/selectors/cart-selectors'
 import { ItemToCartPopup } from "../../components/ItemToCartPopup/ItemToCartPopup";
 import { useHistory, useParams } from 'react-router-dom'
 import { PopupBackground } from "../../components/PopupBackgound/PopupBackground";
@@ -24,21 +33,25 @@ import ReactTooltip from "react-tooltip";
 import { NoCableSelected } from '../../components/NoCableSelected/NoCableSelected';
 import { GoBackIcon } from '../../UI/GoBackIcon/GoBackIcon';
 
+
+
 export const CreateCablePage = (props) => {
 
     //type used to filter cables and connectors
-    const { type } = useParams()
+    // const { type } = useParams()
 
     const dispatch = useDispatch();
     const history = useHistory()
 
-    ////data from firestore
+    ////data from redux
     const cables = useSelector(selectCables);
     const connectors = useSelector(selectConnectors);
     const isInitialize = useSelector(state => state.ui.isInitialize);
-    const cablesMappedObj = useSelector(state => state.data.cablesMappedObj);
-    const connectorsMappedObj = useSelector(state => state.data.connectorsMappedObj);
+    const cablesMappedObj = useSelector(selectCablesMappedObj);
+    const connectorsMappedObj = useSelector(selectConnectorsMappedObj);
     const producersMappedObj = useSelector(selectProducersMappedObj);
+    const cableTypesMappedObj = useSelector(selectCableTypesMappedObj);
+    const cartItems = useSelector(selectCartItems)
 
     const showPopup = useSelector(state => state.ui.showPopup);
 
@@ -51,7 +64,6 @@ export const CreateCablePage = (props) => {
     const [connector_B, setConnector_B] = React.useState(null);
     const [imageData, setImageData] = React.useState(null);
     const [itemToCart, setItemToCart] = React.useState(null);
-
     const [alertMessage, setAlertMessage] = React.useState('');
 
 
@@ -76,24 +88,25 @@ export const CreateCablePage = (props) => {
         setItemToCart(null)
     }
 
-    ///filter only coax cables and connectors
+    ///filter required  cables and connectors
     React.useEffect(() => {
         if (!cables || !connectors)
             return;
-        if (type === 'coax') {
-            const renderCables = cables.filter(c => c.type === process.env.REACT_APP_COAX_TYPE_ID);
-            const renderConnectors = connectors.filter(c => c.type === process.env.REACT_APP_COAX_TYPE_ID);
-            setRenderCables(renderCables)
-            setRenderConnectors(renderConnectors)
-        }
-        if (type === 'audio') {
-            const renderCables = cables.filter(c => c.type === process.env.REACT_APP_AUDIO_TYPE_ID);
-            const renderConnectors = connectors.filter(c => c.type === process.env.REACT_APP_AUDIO_TYPE_ID);
-            setRenderCables(renderCables)
-            setRenderConnectors(renderConnectors)
-        }
 
-    }, [cables, connectors, type]);
+        // const types = {
+        //     'coax': 'oSEeipdzto3zsemlzMqY',
+        //     'audio': 'ai6JYNgKZPClL443TfWE',
+        //     'ethernet': 'R0sYiqlr3ErC9dCrbjZS'
+        // }
+
+        const renderCables = cables.filter(c => c.type === history.location.state.typeId);
+        const renderConnectors = connectors.filter(c => c.type === history.location.state.typeId);
+        setRenderCables(renderCables)
+        setRenderConnectors(renderConnectors)
+
+
+
+    }, [cables, connectors, history.location.state.typeId]);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -104,6 +117,12 @@ export const CreateCablePage = (props) => {
             return
         }
 
+
+        const laborCost = cableTypesMappedObj[history.location.state.typeId].labor
+        const labelCost = cableForm.values.label ? 1 : 0
+
+
+
         setItemToCart({
             id: uuidv4(),
             selectedCable,
@@ -112,24 +131,25 @@ export const CreateCablePage = (props) => {
             length: cableForm.values.length,
             quantity: cableForm.values.quantity,
             label: cableForm.values.label,
-            price: calculateCablePrice(selectedCable.price, cableForm.values.length, connector_A.price, connector_B.price, cableForm.values.label, type)
+            price: calculateCablePrice(selectedCable.price, cableForm.values.length,
+                connector_A.price, connector_B.price, labelCost, laborCost)
         })
 
-        dispatch(togglePopup())
+        dispatch(togglePopup())//open popup
     }
 
     function addItem() {
 
         dispatch(addItemToCart(itemToCart))
         clearState()
-        dispatch(togglePopup())
+        dispatch(togglePopup())//close popup
 
     }
 
     function addItemAndGoToCart() {
         dispatch(addItemToCart(itemToCart))
         clearState()
-        dispatch(togglePopup())
+        dispatch(togglePopup())//close popup
         history.push('/cart')
     }
 
@@ -138,7 +158,7 @@ export const CreateCablePage = (props) => {
         const cableId = e.target.value;
         cableForm.setFieldValue('selectedCable', cableId);
 
-        //get compatible connector for selected cable
+        //set compatible connectors for selected cable
         setSelectedCable(cablesMappedObj[cableId]);
         const selectedConnectors = getConnectorsByCableId(cableId, renderConnectors);
         setCompatibleConnectors(selectedConnectors)
@@ -178,7 +198,7 @@ export const CreateCablePage = (props) => {
         dispatch(togglePopup())
     }
 
-    // console.log(cableForm.values);
+    // console.log(connectorsMappedObj);
     //  console.log(selectedConnector);
     // console.log('renderConnectors', renderConnectors)
 
@@ -231,7 +251,8 @@ export const CreateCablePage = (props) => {
             <div className='flex h-85vh'>
                 <div className='w-1/3 p-2'>
                     <form onSubmit={handleSubmit}>
-                        <Select value={cableForm.values.selectedCable}
+                        <Select
+                            value={cableForm.values.selectedCable}
                             id="selectedCable"
 
                             label='Кабель'
@@ -247,7 +268,8 @@ export const CreateCablePage = (props) => {
                             onBlur={cableForm.handleBlur}
                             handleChange={handleSelectCable} />
 
-                        <Select value={cableForm.values.selectedConnector_A}
+                        <Select
+                            value={cableForm.values.selectedConnector_A}
                             id="selectedConnector_A"
                             label={'Роз\'єм  A'}
                             name='selectedConnector_A'
@@ -263,7 +285,8 @@ export const CreateCablePage = (props) => {
                             onBlur={cableForm.handleBlur}
                             handleChange={handleSelectConnector} />
 
-                        <Select value={cableForm.values.selectedConnector_B}
+                        <Select
+                            value={cableForm.values.selectedConnector_B}
                             id="selectedConnector_B"
                             label={'Роз\'єм  B'}
                             name='selectedConnector_B'
@@ -320,14 +343,14 @@ export const CreateCablePage = (props) => {
                         </div>
 
                         {alertMessage &&
-                            <Alert bgColor={'bg-blue-500'} message={alertMessage} cb={() => setAlertMessage('')} />}
+                            <Alert bgColor={'bg-blue-500'} message={alertMessage} cb={() => setAlertMessage(null)} />}
 
                     </form>
                 </div>
 
                 <div className='w-2/3 p-2 text-white'>
 
-                    {!selectedCable && <NoCableSelected type={type} />}
+                    {!selectedCable && <NoCableSelected />}
 
                     {
                         selectedCable && (
@@ -368,7 +391,7 @@ export const CreateCablePage = (props) => {
                 </PopupBackground>)}
 
             <ReactTooltip place='top' delayShow={200} />
-            <GoBackIcon clickHandler={() => history.push('/select-cable')} size='text-4xl' />
+            <GoBackIcon clickHandler={() => history.goBack()} size='text-4xl' />
         </>
     );
 };

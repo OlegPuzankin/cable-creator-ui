@@ -2,7 +2,7 @@ import app from 'firebase/app'
 import "firebase/auth";
 import 'firebase/firestore'
 import 'firebase/storage'
-import {firebaseConfig} from './firebase_config'
+import { firebaseConfig } from './firebase_config'
 
 
 class Firebase {
@@ -12,7 +12,7 @@ class Firebase {
 
         this.auth = app.auth();
         this.db = app.firestore();
-        this.storageRef=app.storage().ref();
+        this.storageRef = app.storage().ref();
 
     }
 
@@ -43,7 +43,7 @@ class Firebase {
 
         googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
         app.auth().useDeviceLanguage();
-        googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+        googleProvider.setCustomParameters({ 'login_hint': 'user@example.com' });
 
         return await this.auth.signInWithPopup(googleProvider);
     }
@@ -54,15 +54,13 @@ class Firebase {
     }
 
     async addImageToStorage(imageFile) {
-        debugger
 
         const filePath = `images/${imageFile.name}`;
         await this.storageRef.child(filePath).put(imageFile);
-        debugger
 
-        const imageUrl =  await this.storageRef.child(filePath).getDownloadURL();
+        const imageUrl = await this.storageRef.child(filePath).getDownloadURL();
 
-        return {filePath, imageUrl}
+        return { filePath, imageUrl }
     }
 
     async deleteItemFromDatabase(collection, itemID) {
@@ -70,9 +68,9 @@ class Firebase {
 
     }
     async loadCollection(collection) {
-        return this.db.collection(collection).get().then(snapShot=>{
-            return snapShot.docs.map(doc=>{
-                return {id:doc.id, ...doc.data()}
+        return this.db.collection(collection).get().then(snapShot => {
+            return snapShot.docs.map(doc => {
+                return { id: doc.id, ...doc.data() }
             })
         })
 

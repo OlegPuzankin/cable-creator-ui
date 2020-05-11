@@ -1,13 +1,13 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import {FirebaseContext} from "../../firebase/firebaseContext";
-import {togglePopup} from "../../redux/actions/ui-actions";
-import {CableFormPopup} from "./CableFormPopup";
-import {setEditItem} from "../../redux/actions/data-actions";
-import {Loader} from "../../UI/Loader/Loader";
-import {formatDescription} from "../../utils/utility_functions";
+import { useSelector, useDispatch } from 'react-redux'
+import { FirebaseContext } from "../../firebase/firebaseContext";
+import { togglePopup } from "../../redux/actions/ui-actions";
+import { CableFormPopup } from "./CableFormPopup";
+import { setEditItem } from "../../redux/actions/data-actions";
+import { Loader } from "../../UI/Loader/Loader";
+import { formatDescription } from "../../utils/utility_functions";
 import cn from 'classnames'
-import {PopupBackground} from "../PopupBackgound/PopupBackground";
+import { PopupBackground } from "../PopupBackgound/PopupBackground";
 
 
 export const CablesTable = () => {
@@ -28,18 +28,18 @@ export const CablesTable = () => {
 
 
     const showPopup = useSelector(state => state.ui.showPopup);
-    const {firebase} = React.useContext(FirebaseContext);
+    const { firebase } = React.useContext(FirebaseContext);
 
 
     const tableHeader = [
-        {name: 'Pos', width: '5%'},
-        {name: 'PN', width: '5%'},
-        {name: 'Producer', width: '5%'},
-        {name: 'Type', width: '5%'},
-        {name: 'Short description', width: '20%'},
-        {name: 'Full description', width: 'auto%'},
-        {name: 'Price', width: '5%'},
-        {name: 'Image', width: 'auto'},
+        { name: 'Pos', width: '5%' },
+        { name: 'PN', width: '5%' },
+        { name: 'Producer', width: '5%' },
+        { name: 'Type', width: '5%' },
+        { name: 'Short description', width: '20%' },
+        { name: 'Full description', width: 'auto%' },
+        { name: 'Price', width: '5%' },
+        { name: 'Image', width: 'auto' },
     ];
 
     async function editHandler(e) {
@@ -66,7 +66,6 @@ export const CablesTable = () => {
                 firebase.db.collection('connectors').doc(c.id).update({
                     compatibleCables: c.compatibleCables
                 }).then(() => {
-                    debugger
                     setEditItem(null)
 
                 }).catch((e) => {
@@ -79,7 +78,6 @@ export const CablesTable = () => {
         try {
             await firebase.deleteItemFromDatabase('cables', editItem.id)
         } catch (e) {
-            debugger
             console.log(e.message)
         }
     }
@@ -94,7 +92,7 @@ export const CablesTable = () => {
         e.persist()
 
         const item = cables.find(c => c.id === arg);
-        dispatch(setEditItem({...item, table: 'cable'}));
+        dispatch(setEditItem({ ...item, table: 'cable' }));
 
     }
 
@@ -113,7 +111,7 @@ export const CablesTable = () => {
 
             <div className='loader-background'>
                 <div className='loader-container'>
-                    <Loader/>
+                    <Loader />
                 </div>
             </div>)
     }
@@ -124,63 +122,64 @@ export const CablesTable = () => {
         <>
             <div className='p-2 flex align-middle'>
 
-                    <span onClick={addItemHandler}
-                          className="material-icons text-4xl text-blue-500 hover:text-blue-900"> add_circle </span>
+                <span onClick={addItemHandler}
+                    className="material-icons text-4xl text-blue-500 hover:text-blue-900"> add_circle </span>
 
                 {editItem && editItem.table === 'cable' &&
-                <span onClick={editHandler}
-                      className="material-icons text-4xl text-blue-500 hover:text-blue-900"> edit </span>}
+                    <span onClick={editHandler}
+                        className="material-icons text-4xl text-blue-500 hover:text-blue-900"> edit </span>}
 
                 {editItem && editItem.table === 'cable' &&
-                <span onClick={deleteHandler}
-                      className="material-icons text-4xl text-blue-500 hover:text-blue-900">delete</span>}
+                    <span onClick={deleteHandler}
+                        className="material-icons text-4xl text-blue-500 hover:text-blue-900">delete</span>}
 
 
             </div>
 
             <table className="table-auto w-full">
                 <thead>
-                <tr>
-                    {
-                        tableHeader.map((th, idx) => (
-                            <th style={{'width': th.width}} key={idx} className="th-cell">{th.name}</th>))
-                    }
+                    <tr>
+                        {
+                            tableHeader.map((th, idx) => (
+                                <th style={{ 'width': th.width }} key={idx} className="th-cell">{th.name}</th>))
+                        }
 
-                </tr>
+                    </tr>
                 </thead>
                 <tbody>
 
-                {cables && cables.map((c, idx) => {
-                    return (
-                        <tr id={c.id}
-                            key={c.id}
-                            className={cn('table-row', {'table-row-selected': editItem && editItem.id === c.id})}
-                            onClick={(e) => selectItemHandler(e, c.id)}>
+                    {cables && cables.map((c, idx) => {
+                        return (
+                            <tr id={c.id}
+                                key={c.id}
+                                // key={idx}
+                                className={cn('table-row', { 'table-row-selected': editItem && editItem.id === c.id })}
+                                onClick={(e) => selectItemHandler(e, c.id)}>
 
-                            <td className="td-cell text-center">{idx + 1}</td>
-                            <td className="td-cell">{c.partNumber}</td>
-                            <td className="td-cell">{producersMappedObj[c.producer].name}</td>
-                            <td className="td-cell">{cableTypesMappedObj[c.type].type}</td>
-                            <td className="td-cell">{formatDescription(c.desc)}</td>
-                            <td className="td-cell">{formatDescription(c.descFull)}</td>
-                            <td className="td-cell text-center">{c.price}</td>
+                                <td className="td-cell text-center">{idx + 1}</td>
+                                <td className="td-cell">{c.partNumber}</td>
+                                <td className="td-cell">{producersMappedObj[c.producer].name}</td>
+                                <td className="td-cell">{cableTypesMappedObj[c.type].type}</td>
+                                <td className="td-cell">{formatDescription(c.desc)}</td>
+                                <td className="td-cell">{formatDescription(c.descFull)}</td>
+                                <td className="td-cell text-center">{c.price}</td>
 
-                            <td className="td-cell text-center">
-                                <img src={c.imageUrl} alt="" className='td-img'/>
-                            </td>
+                                <td className="td-cell text-center">
+                                    <img src={c.imageUrl} alt="" className='td-img' />
+                                </td>
 
-                        </tr>
-                    )
+                            </tr>
+                        )
 
-                })
-                }
+                    })
+                    }
                 </tbody>
             </table>
             {showPopup &&
-            (<PopupBackground>
-                <CableFormPopup closeHandler={closePopupHandler}
-                                title={editItem ? 'Edit cable' : 'Add cable'}/>
-            </PopupBackground>)}
+                (<PopupBackground>
+                    <CableFormPopup closeHandler={closePopupHandler}
+                        title={editItem ? 'Edit cable' : 'Add cable'} />
+                </PopupBackground>)}
 
 
         </>

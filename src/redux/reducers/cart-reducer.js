@@ -1,4 +1,4 @@
-import { CLEAR_ITEM_FROM_CART, DECREASE_QUANTITY, INCREASE_QUANTITY, ADD_ITEM_TO_CART } from "../types";
+import { CLEAR_ITEM_FROM_CART, DECREASE_QUANTITY, INCREASE_QUANTITY, ADD_ITEM_TO_CART, SET_CART_ITEMS } from "../types";
 
 
 const INITIAL_STATE = {
@@ -8,17 +8,23 @@ const INITIAL_STATE = {
 
 
 export function cartReducer(state = INITIAL_STATE, action) {
-    // debugger
     const { payload } = action;
     switch (action.type) {
+
+
+        case SET_CART_ITEMS:
+            return {
+                ...state, cartItems: payload
+
+            };
+
+
         case ADD_ITEM_TO_CART:
-            debugger
             return {
                 ...state, cartItems: [...state.cartItems, payload]
 
             };
         case INCREASE_QUANTITY:
-            debugger
             return {
                 ...state, cartItems: increaseQty(state.cartItems, payload)
 
@@ -52,7 +58,6 @@ function increaseQty(cartItems, itemId) {
         else
             return i
     })
-    debugger
 
     return result
 

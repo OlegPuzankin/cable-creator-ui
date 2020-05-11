@@ -33,16 +33,7 @@ export function formatDescription(desc) {
 
 }
 
-export function calculateCablePrice(cablePrice, length, connectorA_Price, connectorB_Price, label, labor = 3) {
-    if (labor === 'coax')
-        labor = 1;
-    else if (labor === 'audio')
-        labor = 2;
-
-    if (label)
-        label = 2
-    else
-        label = 0
+export function calculateCablePrice(cablePrice, length, connectorA_Price, connectorB_Price, label, labor) {
 
     return Number(cablePrice) * length + Number(connectorA_Price) + Number(connectorB_Price) + Number(label) + Number(labor)
 

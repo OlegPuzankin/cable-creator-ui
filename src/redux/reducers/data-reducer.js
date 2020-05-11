@@ -1,12 +1,12 @@
-import {SET_CABLE_TYPES, SET_CABLES, SET_CONNECTORS, SET_EDIT_ITEM, SET_PRODUCERS} from '../types'
+import { SET_CABLE_TYPES, SET_CABLES, SET_CONNECTORS, SET_EDIT_ITEM, SET_PRODUCERS } from '../types'
 
 const INITIAL_STATE = {
 
     cables: null,
     cablesMappedObj: null,
 
-    connectors:null,
-    connectorsMappedObj:null,
+    connectors: null,
+    connectorsMappedObj: null,
 
     editItem: null,
 
@@ -19,29 +19,28 @@ const INITIAL_STATE = {
 };
 
 export function dataReducer(state = INITIAL_STATE, action) {
-    // debugger
     const { payload } = action;
     switch (action.type) {
         case SET_CABLES:
-            return{
+            return {
 
                 ...state, cables: payload.cables, cablesMappedObj: payload.mappedObj
             };
         case SET_CONNECTORS:
-            return{
+            return {
                 ...state, connectors: payload.connectors, connectorsMappedObj: payload.mappedObj
             };
         case SET_CABLE_TYPES:
 
-            return{
+            return {
                 ...state, cableTypes: payload.types, cableTypesMappedObj: payload.typesObj
             };
         case SET_PRODUCERS:
-            return{
+            return {
                 ...state, producers: payload.producers, producersMappedObj: payload.producersObj
             };
         case SET_EDIT_ITEM:
-            return{
+            return {
                 ...state, editItem: payload
             };
 

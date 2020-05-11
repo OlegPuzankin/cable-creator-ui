@@ -1,10 +1,9 @@
 import React from 'react';
 
 
-export const SelectFile = ({handleChange, label, id, selectedFile=null, ...otherProps}) => {
+export const SelectFile = ({ handleChange, label, id, selectedFile = null, ...otherProps }) => {
 
 
-    // debugger
     return (
         <div className="md:flex md:items-center mb-6">
             <div className="md:w-1/4">
@@ -18,11 +17,11 @@ export const SelectFile = ({handleChange, label, id, selectedFile=null, ...other
                     id={id}
                     onChange={handleChange}
                     className='hidden'
-                    {...otherProps}/>
-               {selectedFile
-                   ? <span className='ml-2'>{selectedFile.name}</span>
-                   : <span className='ml-2'>No file selected</span>
-               }
+                    {...otherProps} />
+                {selectedFile
+                    ? <span className='ml-2'>{selectedFile.name}</span>
+                    : <span className='ml-2'>No file selected</span>
+                }
             </div>
         </div>
     );

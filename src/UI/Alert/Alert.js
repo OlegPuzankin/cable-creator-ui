@@ -1,10 +1,9 @@
 import React from 'react';
 import './Alert.scss'
 
-import {CloseIcon} from "../CloseIcon/CloseIcon";
+import { CloseIcon } from "../CloseIcon/CloseIcon";
 
-export const Alert = ({message, textColor = 'text-white', bgColor, cb}) => {
-    // debugger
+export const Alert = ({ message, textColor = 'text-white', bgColor, cb }) => {
 
     const ref = React.useRef(null)
 
@@ -20,6 +19,6 @@ export const Alert = ({message, textColor = 'text-white', bgColor, cb}) => {
             <div className='alert-box__text'>
                 {message}
             </div>
-            <CloseIcon closeHandler={closeHandler}/>
+            <CloseIcon closeHandler={closeHandler} />
         </div>)
 }

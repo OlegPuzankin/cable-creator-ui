@@ -1,12 +1,12 @@
 import React from 'react'
 import { FormInput } from '../UI/Inputs/FormInput'
 import { FirebaseContext } from '../firebase/firebaseContext'
-import {Button} from "../UI/Button/Button";
+import { Button } from "../UI/Button/Button";
 
 
 const SignUpPage = (props) => {
     const [state, setState] = React.useState({ email: '', password: '', name: '', errorSignUp: '' });
-    const { firebase, user } = React.useContext(FirebaseContext)
+    const { firebase } = React.useContext(FirebaseContext)
 
 
     function handleChange(e) {
@@ -15,27 +15,21 @@ const SignUpPage = (props) => {
     }
 
     async function handleSubmit(e) {
-        debugger
         e.preventDefault()
-        try{
+        try {
             await firebase.register(state.name, state.email, state.password)
             props.history.push('/')
         }
 
         catch (e) {
-            setState({...state, errorSignUp:e.message})
+            setState({ ...state, errorSignUp: e.message })
         }
     }
-
-    // if (user)
-    //     props.history.push('/')
-
-
 
     return (
         <div className='mt-16 w-2/3 bg-gray-900 rounded mx-auto p-8 pr-12'>
             <div className='text-red-500 text-center h-8'>{state.errorSignUp}</div>
-            <form  onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className='text-white text-center mb-3 text-lg'>Sign up form</div>
                 <FormInput value={state.name}
                     autoComplete='off'

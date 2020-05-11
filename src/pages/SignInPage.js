@@ -10,7 +10,7 @@ const SignInPage = (props) => {
     console.log(props, 'sign in props');
     const [state, setState] = React.useState({ email: '', password: '', errorSignIn: '' });
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     // const errorSignIn = useSelector(state => state.user.errorSignIn)
     // const user = useSelector(state => state.user.user)
 
@@ -22,9 +22,7 @@ const SignInPage = (props) => {
 
         try {
 
-            const user = await firebase.login(state.email, state.password)
-            debugger
-            // dispatch(setDisplayName(user.displayName))
+            await firebase.login(state.email, state.password)
 
 
         } catch (e) {

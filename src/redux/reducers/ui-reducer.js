@@ -1,15 +1,14 @@
-import {TOGGLE_IS_INITIALIZE, TOGGLE_IS_LOADING, TOGGLE_ONLINE, TOGGLE_POPUP} from '../types'
+import { TOGGLE_IS_INITIALIZE, TOGGLE_IS_LOADING, TOGGLE_ONLINE, TOGGLE_POPUP } from '../types'
 
 const INITIAL_STATE = {
     showPopup: false,
     isOnline: true,
     isLoading: false,
-    isInitialize:false
+    isInitialize: false
 
 };
 
 export function uiReducer(state = INITIAL_STATE, action) {
-    // debugger
     const { payload } = action;
     switch (action.type) {
         case TOGGLE_POPUP:

@@ -1,15 +1,14 @@
 import React from 'react';
-import {FirebaseContext} from "../firebase/firebaseContext";
-import {Button} from "../UI/Button/Button";
-import {useDispatch} from "react-redux";
+import { FirebaseContext } from "../firebase/firebaseContext";
+import { Button } from "../UI/Button/Button";
+// import {useDispatch} from "react-redux";
 
-export const UserProfilePage = ({history}) => {
-    const {user, firebase} = React.useContext(FirebaseContext)
-    const dispatch = useDispatch()
+export const UserProfilePage = ({ history }) => {
+    const { user, firebase } = React.useContext(FirebaseContext)
+    // const dispatch = useDispatch()
 
 
     async function handleLogout(e) {
-        debugger
         e.preventDefault()
 
         await firebase.logout()

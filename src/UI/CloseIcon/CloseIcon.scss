@@ -5,15 +5,16 @@
   width: 2rem;
   height: 2rem;
   background-color: transparent;
+ // color: #fff;
   border-radius: 4px;
-  transition: all 0.1s;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.2s;
 
   &:hover {
-    background-color: red;
-    // color: #fff;
+    // background-color: $color-primary-dark;
+    color:red;
   }
 }
